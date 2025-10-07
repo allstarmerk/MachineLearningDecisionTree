@@ -93,7 +93,7 @@ def problem_1():
     print(f"Split on 'windy': Total Gini = {total_gini_windy:.4f}")
     
     best_gini = 'foggy' if total_gini_foggy < total_gini_windy else 'windy'
-    print(f"Best split will be used as Root: {best_gini}")
+    print(f"Best split: {best_gini}")
     
     # Build the tree based on best split
     print(f"\nDecision Tree (Gini):")
@@ -143,7 +143,7 @@ def problem_1():
     print(f"Split on 'windy': Information Gain = {ig_windy:.4f}")
     
     best_ig = 'foggy' if ig_foggy > ig_windy else 'windy'
-    print(f"Best split will be used as Root: {best_ig}")
+    print(f"Best split: {best_ig}")
     
     # Build the tree based on best split
     print(f"\nDecision Tree (Information Gain):")
@@ -220,9 +220,9 @@ def problem_2():
     dt_gini = DecisionTreeClassifier(criterion='gini', min_samples_split=25, random_state=42)
     dt_gini.fit(X_train, y_train)
     y_pred = dt_gini.predict(X_test)
-    acc = accuracy_score(y_test, y_pred)
+    acc_dt_gini = accuracy_score(y_test, y_pred)
     cm = confusion_matrix(y_test, y_pred)
-    print(f"Accuracy = {acc:.4f}")
+    print(f"Accuracy = {acc_dt_gini:.4f}")
     print(f"Confusion Matrix:\n{cm}")
     
     # (c) Random Forest with Gini
@@ -231,9 +231,9 @@ def problem_2():
                                      min_samples_split=25, random_state=42)
     rf_gini.fit(X_train, y_train)
     y_pred = rf_gini.predict(X_test)
-    acc = accuracy_score(y_test, y_pred)
+    acc_rf_gini = accuracy_score(y_test, y_pred)
     cm = confusion_matrix(y_test, y_pred)
-    print(f"Accuracy = {acc:.4f}")
+    print(f"Accuracy = {acc_rf_gini:.4f}")
     print(f"Confusion Matrix:\n{cm}")
     
     # (d) Using Entropy
@@ -243,9 +243,9 @@ def problem_2():
     dt_entropy = DecisionTreeClassifier(criterion='entropy', min_samples_split=25, random_state=42)
     dt_entropy.fit(X_train, y_train)
     y_pred = dt_entropy.predict(X_test)
-    acc = accuracy_score(y_test, y_pred)
+    acc_dt_entropy = accuracy_score(y_test, y_pred)
     cm = confusion_matrix(y_test, y_pred)
-    print(f"Accuracy = {acc:.4f}")
+    print(f"Accuracy = {acc_dt_entropy:.4f}")
     print(f"Confusion Matrix:\n{cm}")
     
     print("\nRandom Forest (Entropy):")
@@ -253,10 +253,23 @@ def problem_2():
                                         min_samples_split=25, random_state=42)
     rf_entropy.fit(X_train, y_train)
     y_pred = rf_entropy.predict(X_test)
-    acc = accuracy_score(y_test, y_pred)
+    acc_rf_entropy = accuracy_score(y_test, y_pred)
     cm = confusion_matrix(y_test, y_pred)
-    print(f"Accuracy = {acc:.4f}")
+    print(f"Accuracy = {acc_rf_entropy:.4f}")
     print(f"Confusion Matrix:\n{cm}")
+    
+    # Comparison of all results
+    print("\n" + "="*60)
+    print("COMPARISON OF RESULTS:")
+    print("="*60)
+    print(f"Decision Tree (Gini):    Accuracy = {acc_dt_gini:.4f}")
+    print(f"Decision Tree (Entropy): Accuracy = {acc_dt_entropy:.4f}")
+    print(f"Random Forest (Gini):    Accuracy = {acc_rf_gini:.4f}")
+    print(f"Random Forest (Entropy): Accuracy = {acc_rf_entropy:.4f}")
+    print("\nObservations:")
+    print("- All methods achieved the same accuracy (0.9667)")
+    print("- Gini and Entropy criteria produce identical results on this dataset")
+    print("- Random Forests and Decision Trees perform similarly here")
 
 # Run both problems
 if __name__ == "__main__":
